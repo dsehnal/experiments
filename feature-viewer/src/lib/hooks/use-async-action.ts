@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ToastService } from '../services/toast';
 
 export interface UseAsyncActionState<T> {
@@ -15,6 +15,14 @@ export function useAsyncAction<T>(options?: {
 }): UseAsyncAction<T> {
     const [state, setState] = useState<UseAsyncActionState<T>>({});
     const runId = useRef(0);
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        isMounted.current = true;
+        return () => {
+            isMounted.current = false;
+        };
+    }, []);
 
     const run = async (action: Promise<T>) => {
         const id = ++runId.current;
@@ -22,12 +30,12 @@ export function useAsyncAction<T>(options?: {
 
         try {
             const result = await action;
-            if (id === runId.current) {
+            if (isMounted && id === runId.current) {
                 setState({ result });
             }
             return result;
         } catch (error) {
-            if (id === runId.current) {
+            if (isMounted && id === runId.current) {
                 if (options?.onError === 'toast') {
                     ToastService.error(error, { duration: 5000 });
                     setState({});
