@@ -46,6 +46,7 @@
     "fake-indexeddb": "^6.0.0",
     "globals": "^15.15.0",
     "jest": "^29.7.0",
+    "molstar": "^4.17.0",
     "next-themes": "^0.4.6",
     "papaparse": "^5.5.2",
     "prettier": "^3.5.3",

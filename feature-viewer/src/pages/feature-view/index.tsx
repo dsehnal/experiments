@@ -43,15 +43,15 @@ class FeatureExampleModel extends ReactiveModel {
 
         this.subscribe(combineLatest([this.state.current, this.features.state.state]), ([view, state]) => {
             if (!state.currentEntityId || !view) {
-                this.view3d.state.data.next('empty');
+                this.view3d.state.data.next(undefined);
                 return;
             }
             const entity = FeatureUtils.findEntity(view, state.currentEntityId);
             if (!entity) {
-                this.view3d.state.data.next('empty');
+                this.view3d.state.data.next(undefined);
                 return;
             }
-            this.view3d.state.data.next(`ID: ${entity.node.id}, Type: ${entity.node.type}`);
+            this.view3d.state.data.next({ id: entity.node.id, type: entity.node.type });
         });
     }
 }
