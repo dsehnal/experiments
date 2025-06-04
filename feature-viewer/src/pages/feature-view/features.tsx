@@ -168,7 +168,7 @@ function SequenceTrack({
 
     return (
         <Table.Row
-            bg={viewState.currentEntityId === view.id ? '#222' : undefined}
+            bg={viewState.currentEntityId === view.id ? 'bg.muted' : undefined}
             onClick={() => model.toggleCurrent(view.id)}
         >
             <Table.Cell paddingLeft={2 * offset}>
@@ -234,7 +234,7 @@ function FeatureTrack({
 
     return (
         <Table.Row
-            bg={viewState.currentEntityId === view.id ? '#222' : undefined}
+            bg={viewState.currentEntityId === view.id ? 'bg.muted' : undefined}
             onClick={() => model.toggleCurrent(view.id)}
         >
             <Table.Cell paddingLeft={2 * offset}>
